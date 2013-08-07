@@ -1,0 +1,6 @@
+{
+  "main": "./lib/toggle-quotes",
+  "activationEvents": [
+    "toggle-quotes:toggle"
+  ]
+}
