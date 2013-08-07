@@ -28,3 +28,15 @@ describe "ToggleQuotes", ->
         editSession.setCursorBufferPosition([1, 16])
         toggleQuotes(editSession)
         expect(buffer.lineForRow(1)).toBe 'console.log("Hello World");'
+
+    describe "when the cursor is inside a single-quoted string that is nested within a double quoted string", ->
+      it "switches the outer quotes to single and escapes the inner quotes", ->
+        editSession.setCursorBufferPosition([2, 22])
+        toggleQuotes(editSession)
+        expect(buffer.lineForRow(2)).toBe "console.log('Hello \\'World\\'');"
+
+    describe "when the cursor is inside a double-quoted string that is nested within a single quoted string", ->
+      it "switches the outer quotes to double and escapes the inner quotes", ->
+        editSession.setCursorBufferPosition([3, 22])
+        toggleQuotes(editSession)
+        expect(buffer.lineForRow(3)).toBe 'console.log("Hello \\"World\\"");'

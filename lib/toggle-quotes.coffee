@@ -10,7 +10,11 @@ module.exports =
     text = editSession.getTextInBufferRange(range)
     quoteCharacter = text[0]
     oppositeQuoteCharacter = getOppositeQuote(quoteCharacter)
-    newText = text.replace(new RegExp(quoteCharacter, 'g'), oppositeQuoteCharacter)
+    quoteRegex = new RegExp(quoteCharacter, 'g')
+    oppositeQuoteRegex = new RegExp(oppositeQuoteCharacter, 'g')
+    newText = text
+      .replace(oppositeQuoteRegex, "\\#{oppositeQuoteCharacter}")
+      .replace(quoteRegex, oppositeQuoteCharacter)
     editSession.setTextInBufferRange(range, newText)
 
 getOppositeQuote = (quoteCharacter) ->
