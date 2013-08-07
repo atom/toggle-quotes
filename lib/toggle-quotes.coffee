@@ -12,10 +12,14 @@ module.exports =
     quoteCharacter = text[0]
     oppositeQuoteCharacter = getOppositeQuote(quoteCharacter)
     quoteRegex = new RegExp(quoteCharacter, 'g')
+    escapedQuoteRegex = new RegExp("\\\\#{quoteCharacter}", 'g')
     oppositeQuoteRegex = new RegExp(oppositeQuoteCharacter, 'g')
+
     newText = text
       .replace(oppositeQuoteRegex, "\\#{oppositeQuoteCharacter}")
-      .replace(quoteRegex, oppositeQuoteCharacter)
+      .replace(escapedQuoteRegex, quoteCharacter)
+    newText = oppositeQuoteCharacter + newText[1...-1] + oppositeQuoteCharacter
+
     editSession.setTextInBufferRange(range, newText)
     editSession.setCursorBufferPosition(previousCursorPosition)
 
