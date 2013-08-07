@@ -6,6 +6,7 @@ module.exports =
   serialize: ->
 
   toggleQuotes: (editSession) ->
+    previousCursorPosition = editSession.getCursorBufferPosition()
     range = editSession.bufferRangeForScopeAtCursor(".string.quoted")
     text = editSession.getTextInBufferRange(range)
     quoteCharacter = text[0]
@@ -16,6 +17,7 @@ module.exports =
       .replace(oppositeQuoteRegex, "\\#{oppositeQuoteCharacter}")
       .replace(quoteRegex, oppositeQuoteCharacter)
     editSession.setTextInBufferRange(range, newText)
+    editSession.setCursorBufferPosition(previousCursorPosition)
 
 getOppositeQuote = (quoteCharacter) ->
   if quoteCharacter is '"'
