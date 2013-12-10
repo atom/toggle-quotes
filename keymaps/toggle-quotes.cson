@@ -1,3 +1,2 @@
-# DOCUMENT: link to keymap documentation
-'body':
+'.workspace':
   'ctrl-"': 'toggle-quotes:toggle'

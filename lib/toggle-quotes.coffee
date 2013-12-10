@@ -1,9 +1,7 @@
-EditSession = require 'edit-session'
-
-toggleQuotes = (editSession) ->
-  previousCursorPosition = editSession.getCursorBufferPosition()
-  range = editSession.bufferRangeForScopeAtCursor('.string.quoted')
-  text = editSession.getTextInBufferRange(range)
+toggleQuotes = (editor) ->
+  previousCursorPosition = editor.getCursorBufferPosition()
+  range = editor.bufferRangeForScopeAtCursor('.string.quoted')
+  text = editor.getTextInBufferRange(range)
   quoteCharacter = text[0]
   oppositeQuoteCharacter = getOppositeQuote(quoteCharacter)
   quoteRegex = new RegExp(quoteCharacter, 'g')
@@ -15,8 +13,8 @@ toggleQuotes = (editSession) ->
     .replace(escapedQuoteRegex, quoteCharacter)
   newText = oppositeQuoteCharacter + newText[1...-1] + oppositeQuoteCharacter
 
-  editSession.setTextInBufferRange(range, newText)
-  editSession.setCursorBufferPosition(previousCursorPosition)
+  editor.setTextInBufferRange(range, newText)
+  editor.setCursorBufferPosition(previousCursorPosition)
 
 getOppositeQuote = (quoteCharacter) ->
   if quoteCharacter is '"'
@@ -26,8 +24,8 @@ getOppositeQuote = (quoteCharacter) ->
 
 module.exports =
   activate: ->
-    rootView.command 'toggle-quotes:toggle', ->
-      paneItem = rootView.getActivePaneItem()
-      toggleQuotes(paneItem) if paneItem instanceof EditSession
+    atom.workspaceView.command 'toggle-quotes:toggle', '.editor', ->
+      paneItem = atom.workspaceView.getActivePaneItem()
+      toggleQuotes(paneItem)
 
   toggleQuotes: toggleQuotes
