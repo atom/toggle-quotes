@@ -1,2 +1,2 @@
-'workspace':
+'.workspace':
   'ctrl-"': 'toggle-quotes:toggle'
