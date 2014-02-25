@@ -4,6 +4,7 @@
   "main": "./lib/toggle-quotes",
   "description": "Quickly toggle between single and double quotes",
   "repository": "https://github.com/atom/toggle-quotes",
+  "license": "MIT",
   "activationEvents": [
     "toggle-quotes:toggle"
   ],
