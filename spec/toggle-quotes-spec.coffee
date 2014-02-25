@@ -5,17 +5,19 @@ describe "ToggleQuotes", ->
     [editor, buffer] = []
 
     beforeEach ->
-      atom.packages.activatePackage('language-javascript', sync: true)
+      waitsForPromise ->
+        atom.packages.activatePackage('language-javascript')
 
-      editor = atom.project.openSync()
-      buffer = editor.getBuffer()
-      editor.setText """
-        console.log("Hello World");
-        console.log('Hello World');
-        console.log("Hello 'World'");
-        console.log('Hello "World"');
-      """
-      editor.setGrammar(atom.syntax.selectGrammar('test.js'))
+      runs ->
+        editor = atom.project.openSync()
+        buffer = editor.getBuffer()
+        editor.setText """
+          console.log("Hello World");
+          console.log('Hello World');
+          console.log("Hello 'World'");
+          console.log('Hello "World"');
+        """
+        editor.setGrammar(atom.syntax.selectGrammar('test.js'))
 
     describe "when the cursor is inside a double quoted string", ->
       it "switches the quotes to single", ->
