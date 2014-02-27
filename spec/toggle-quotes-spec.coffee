@@ -19,6 +19,10 @@ describe "ToggleQuotes", ->
         """
         editor.setGrammar(atom.syntax.selectGrammar('test.js'))
 
+    describe "when the cursor is not inside a quoted string", ->
+      it "does nothing", ->
+        expect(-> toggleQuotes(editor)).not.toThrow()
+
     describe "when the cursor is inside a double quoted string", ->
       it "switches the quotes to single", ->
         editor.setCursorBufferPosition([0, 16])
