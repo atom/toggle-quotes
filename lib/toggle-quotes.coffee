@@ -1,17 +1,11 @@
 toggleQuotes = (editor) ->
   cursors = editor.getCursors()
 
-  positions = []
-
   for cursor in cursors
     do (cursor) ->
-      positions.push(position = cursor.getBufferPosition())
+      position = cursor.getBufferPosition()
       toggleQuoteAtPosition(editor, position)
-
-  # reset cursors to where they were - first destroy all, then add them back in
-  # at their original places
-  cursor.destroy() for cursor in editor.getCursors()
-  editor.addCursorAtBufferPosition position for position in positions
+      cursor.setBufferPosition(position)
 
 toggleQuoteAtPosition = (editor, position) ->
   range = editor.displayBuffer.bufferRangeForScopeAtPosition('.string.quoted', position)
