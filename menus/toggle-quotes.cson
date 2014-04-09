@@ -1,0 +1,11 @@
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'Toggle Quotes'
+      'submenu': [
+        { 'label': 'Toggle', 'command': 'toggle-quotes:toggle' }
+      ]
+    ]
+  }
+]
