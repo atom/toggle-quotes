@@ -1,8 +1,15 @@
 toggleQuotes = (editor) ->
-  range = editor.bufferRangeForScopeAtCursor('.string.quoted')
+  editor.transact ->
+    for cursor in editor.getCursors()
+      do (cursor) ->
+        position = cursor.getBufferPosition()
+        toggleQuoteAtPosition(editor, position)
+        cursor.setBufferPosition(position)
+
+toggleQuoteAtPosition = (editor, position) ->
+  range = editor.displayBuffer.bufferRangeForScopeAtPosition('.string.quoted', position)
   return unless range?
 
-  previousCursorPosition = editor.getCursorBufferPosition()
   text = editor.getTextInBufferRange(range)
   quoteCharacter = text[0]
   oppositeQuoteCharacter = getOppositeQuote(quoteCharacter)
@@ -16,7 +23,6 @@ toggleQuotes = (editor) ->
   newText = oppositeQuoteCharacter + newText[1...-1] + oppositeQuoteCharacter
 
   editor.setTextInBufferRange(range, newText)
-  editor.setCursorBufferPosition(previousCursorPosition)
 
 getOppositeQuote = (quoteCharacter) ->
   if quoteCharacter is '"'
