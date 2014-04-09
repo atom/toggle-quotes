@@ -32,7 +32,7 @@ getOppositeQuote = (quoteCharacter) ->
 module.exports =
   activate: ->
     atom.workspaceView.command 'toggle-quotes:toggle', '.editor', ->
-      paneItem = atom.workspaceView.getActivePaneItem()
-      toggleQuotes(paneItem)
+      editor = atom.workspace.getActiveEditor()
+      toggleQuotes(editor)
 
   toggleQuotes: toggleQuotes
