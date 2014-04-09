@@ -1,10 +1,9 @@
 toggleQuotes = (editor) ->
   editor.transact ->
     for cursor in editor.getCursors()
-      do (cursor) ->
-        position = cursor.getBufferPosition()
-        toggleQuoteAtPosition(editor, position)
-        cursor.setBufferPosition(position)
+      position = cursor.getBufferPosition()
+      toggleQuoteAtPosition(editor, position)
+      cursor.setBufferPosition(position)
 
 toggleQuoteAtPosition = (editor, position) ->
   range = editor.displayBuffer.bufferRangeForScopeAtPosition('.string.quoted', position)
