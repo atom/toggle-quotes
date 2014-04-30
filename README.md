@@ -1,4 +1,4 @@
-# Toggle quotes package
+# Toggle quotes package [![Build Status](https://travis-ci.org/atom/toggle-quotes?branch=master)](https://travis-ci.org/atom/toggle-quotes)
 
 `ctrl-"` to toggle a single-quoted string to a double-quoted string, and vice
 versa. Available when using any grammar that supports single-quoted and
