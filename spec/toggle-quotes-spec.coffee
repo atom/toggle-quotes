@@ -80,8 +80,15 @@ describe "ToggleQuotes", ->
       describe "when it is quoted", ->
         it "toggles the quotes", ->
           editor.setGrammar(atom.syntax.selectGrammar('test.json'))
-          console.log editor.getGrammar()
           editor.setText("{'invalid': true}")
           editor.setCursorBufferPosition([0, 4])
           toggleQuotes(editor)
           expect(editor.getText()).toBe '{"invalid": true}'
+
+      describe "when it is not quoted", ->
+        it "does not toggle the quotes", ->
+          editor.setGrammar(atom.syntax.selectGrammar('test.json'))
+          editor.setText("{invalid: true}")
+          editor.setCursorBufferPosition([0, 4])
+          toggleQuotes(editor)
+          expect(editor.getText()).toBe '{invalid: true}'
