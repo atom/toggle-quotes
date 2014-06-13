@@ -8,6 +8,9 @@ describe "ToggleQuotes", ->
       waitsForPromise ->
         atom.packages.activatePackage('language-javascript')
 
+      waitsForPromise ->
+        atom.packages.activatePackage('language-json')
+
       runs ->
         editor = atom.project.openSync()
         buffer = editor.getBuffer()
@@ -72,3 +75,13 @@ describe "ToggleQuotes", ->
         expect(buffer.lineForRow(1)).toBe "console.log('Hello World');"
         expect(editor.getCursors()[0].getBufferPosition()).toEqual [0, 16]
         expect(editor.getCursors()[1].getBufferPosition()).toEqual [1, 16]
+
+    describe "when the cursor is on an invalid region", ->
+      describe "when it is quoted", ->
+        it "toggles the quotes", ->
+          editor.setGrammar(atom.syntax.selectGrammar('test.json'))
+          console.log editor.getGrammar()
+          editor.setText("{'invalid': true}")
+          editor.setCursorBufferPosition([0, 4])
+          toggleQuotes(editor)
+          expect(editor.getText()).toBe '{"invalid": true}'
