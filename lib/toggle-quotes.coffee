@@ -7,6 +7,14 @@ toggleQuotes = (editor) ->
 
 toggleQuoteAtPosition = (editor, position) ->
   range = editor.displayBuffer.bufferRangeForScopeAtPosition('.string.quoted', position)
+
+  unless range?
+    # Attempt to match the current invalid region if it is wrapped in quotes
+    # This is useful for languages where changing the quotes makes the range
+    # invalid and so toggling again should properly restore the valid quotes
+    if range = editor.displayBuffer.bufferRangeForScopeAtPosition('.invalid.illegal', position)
+      return unless /^(".*"|'.*')$/.test(editor.getTextInBufferRange(range))
+
   return unless range?
 
   text = editor.getTextInBufferRange(range)
