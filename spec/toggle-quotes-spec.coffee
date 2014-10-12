@@ -18,12 +18,20 @@ describe "ToggleQuotes", ->
           console.log('Hello World');
           console.log("Hello 'World'");
           console.log('Hello "World"');
+          console.log('');
         """
         editor.setGrammar(atom.syntax.selectGrammar('test.js'))
 
     describe "when the cursor is not inside a quoted string", ->
       it "does nothing", ->
         expect(-> toggleQuotes(editor)).not.toThrow()
+
+    describe "when the cursor is inside an empty single quoted string", ->
+      it "switches the quotes to double", ->
+        editor.setCursorBufferPosition([4, 13])
+        toggleQuotes(editor)
+        expect(editor.lineForBufferRow(4)).toBe 'console.log("");'
+        expect(editor.getCursorBufferPosition()).toEqual [4, 13]
 
     describe "when the cursor is inside a double quoted string", ->
       it "switches the quotes to single", ->
