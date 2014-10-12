@@ -1,7 +1,7 @@
 {toggleQuotes} = require '../lib/toggle-quotes'
 
 describe "ToggleQuotes", ->
-  describe "toggleQuotes(editor)", ->
+  describe "toggleQuotes(editor) js", ->
     editor = null
 
     beforeEach ->
@@ -91,3 +91,32 @@ describe "ToggleQuotes", ->
           editor.setCursorBufferPosition([0, 4])
           toggleQuotes(editor)
           expect(editor.getText()).toBe '{invalid: true}'
+
+  describe "toggleQuotes(editor) python", ->
+    editor = null
+
+    beforeEach ->
+      waitsForPromise ->
+        atom.packages.activatePackage('language-python')
+
+      runs ->
+        editor = atom.project.openSync()
+        editor.setText """
+          print(u"Hello World")
+          print(r'')
+        """
+        editor.setGrammar(atom.syntax.selectGrammar('test.py'))
+
+    describe "when cursor is inside a double quoted unicode string", ->
+      it "switches quotes to single excluding unicode character", ->
+        editor.setCursorBufferPosition([0, 16])
+        toggleQuotes(editor)
+        expect(editor.lineForBufferRow(0)).toBe "print(u'Hello World')"
+        expect(editor.getCursorBufferPosition()).toEqual [0, 16]
+
+    describe "when cursor is inside an empty single quoted raw string", ->
+      it "switches quotes to double", ->
+        editor.setCursorBufferPosition([1, 8])
+        toggleQuotes(editor)
+        expect(editor.lineForBufferRow(1)).toBe 'print(r"")'
+        expect(editor.getCursorBufferPosition()).toEqual [1, 8]
