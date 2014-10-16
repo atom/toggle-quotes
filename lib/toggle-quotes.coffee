@@ -18,15 +18,13 @@ toggleQuoteAtPosition = (editor, position) ->
   return unless range?
 
   text = editor.getTextInBufferRange(range)
-  quoteCharacter = text[0]
+  [quoteCharacter] = text
 
   # In Python a string can have a prefix specifying its format. The Python
   # grammar includes this prefix in the string, and thus we need to exclude
   # it when toggling quotes
   prefix = ''
-  if new RegExp('[uUr]').test(quoteCharacter)
-    quoteCharacter = text[1]
-    prefix = text[0]
+  [prefix, quoteCharacter] = text if /[uUr]/.test(quoteCharacter)
 
   oppositeQuoteCharacter = getOppositeQuote(quoteCharacter)
   quoteRegex = new RegExp(quoteCharacter, 'g')
