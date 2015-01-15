@@ -1,6 +1,9 @@
 {toggleQuotes} = require '../lib/toggle-quotes'
 
 describe "ToggleQuotes", ->
+  beforeEach ->
+    atom.config.set('toggle-quotes.quoteCharacters', '\'"')
+
   describe "toggleQuotes(editor) js", ->
     editor = null
 
@@ -37,11 +40,20 @@ describe "ToggleQuotes", ->
         expect(editor.getCursorBufferPosition()).toEqual [4, 13]
 
     describe "when the cursor is inside a double quoted string", ->
-      it "switches the quotes to single", ->
-        editor.setCursorBufferPosition([0, 16])
-        toggleQuotes(editor)
-        expect(editor.lineTextForBufferRow(0)).toBe "console.log('Hello World');"
-        expect(editor.getCursorBufferPosition()).toEqual [0, 16]
+      describe "when using default config", ->
+        it "switches the double quotes to single quotes", ->
+          editor.setCursorBufferPosition([0, 16])
+          toggleQuotes(editor)
+          expect(editor.lineTextForBufferRow(0)).toBe "console.log('Hello World');"
+          expect(editor.getCursorBufferPosition()).toEqual [0, 16]
+
+      describe "when using custom config of backticks", ->
+        it "switches the double quotes to backticks", ->
+          atom.config.set('toggle-quotes.quoteCharacters', '\'"`')
+          editor.setCursorBufferPosition([0, 16])
+          toggleQuotes(editor)
+          expect(editor.lineTextForBufferRow(0)).toBe "console.log(`Hello World`);"
+          expect(editor.getCursorBufferPosition()).toEqual [0, 16]
 
     describe "when the cursor is inside a single quoted string", ->
       it "switches the quotes to double", ->

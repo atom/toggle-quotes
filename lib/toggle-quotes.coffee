@@ -6,6 +6,7 @@ toggleQuotes = (editor) ->
       cursor.setBufferPosition(position)
 
 toggleQuoteAtPosition = (editor, position) ->
+  quoteChars = atom.config.get('toggle-quotes.quoteCharacters')
   range = editor.displayBuffer.bufferRangeForScopeAtPosition('.string.quoted', position)
 
   unless range?
@@ -13,7 +14,9 @@ toggleQuoteAtPosition = (editor, position) ->
     # This is useful for languages where changing the quotes makes the range
     # invalid and so toggling again should properly restore the valid quotes
     if range = editor.displayBuffer.bufferRangeForScopeAtPosition('.invalid.illegal', position)
-      return unless /^(".*"|'.*')$/.test(editor.getTextInBufferRange(range))
+      inner = quoteChars.split('').map((c) -> "#{c}.*#{c}").join('|')
+      regex = new RegExp("^(#{inner})$", 'g')
+      return unless regex.test(editor.getTextInBufferRange(range))
 
   return unless range?
 
@@ -26,25 +29,30 @@ toggleQuoteAtPosition = (editor, position) ->
   prefix = ''
   [prefix, quoteCharacter] = text if /[uUr]/.test(quoteCharacter)
 
-  oppositeQuoteCharacter = getOppositeQuote(quoteCharacter)
+  nextQuoteCharacter = getNextQuote(quoteCharacter, quoteChars)
+  return unless nextQuoteCharacter
   quoteRegex = new RegExp(quoteCharacter, 'g')
   escapedQuoteRegex = new RegExp("\\\\#{quoteCharacter}", 'g')
-  oppositeQuoteRegex = new RegExp(oppositeQuoteCharacter, 'g')
+  nextQuoteRegex = new RegExp(nextQuoteCharacter, 'g')
 
   newText = text
-    .replace(oppositeQuoteRegex, "\\#{oppositeQuoteCharacter}")
+    .replace(nextQuoteRegex, "\\#{nextQuoteCharacter}")
     .replace(escapedQuoteRegex, quoteCharacter)
-  newText = prefix + oppositeQuoteCharacter + newText[(1+prefix.length)...-1] + oppositeQuoteCharacter
+  newText = prefix + nextQuoteCharacter + newText[(1+prefix.length)...-1] + nextQuoteCharacter
 
   editor.setTextInBufferRange(range, newText)
 
-getOppositeQuote = (quoteCharacter) ->
-  if quoteCharacter is '"'
-    "'"
-  else
-    '"'
+getNextQuote = (c, cs) ->
+  i = cs.indexOf(c)
+  return null if i == -1
+  cs[(i + 1) % cs.length]
 
 module.exports =
+  config:
+    quoteCharacters:
+      type: 'string'
+      default: '"\''
+
   activate: ->
     atom.commands.add 'atom-text-editor', 'toggle-quotes:toggle', ->
       if editor = atom.workspace.getActiveTextEditor()
