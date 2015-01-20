@@ -11,8 +11,11 @@ describe "ToggleQuotes", ->
       waitsForPromise ->
         atom.packages.activatePackage('language-json')
 
+      waitsForPromise ->
+        atom.workspace.open()
+
       runs ->
-        editor = atom.project.openSync()
+        editor = atom.workspace.getActiveTextEditor()
         editor.setText """
           console.log("Hello World");
           console.log('Hello World');
@@ -107,8 +110,11 @@ describe "ToggleQuotes", ->
       waitsForPromise ->
         atom.packages.activatePackage('language-python')
 
+      waitsForPromise ->
+        atom.workspace.open()
+
       runs ->
-        editor = atom.project.openSync()
+        editor = atom.workspace.getActiveTextEditor()
         editor.setText """
           print(u"Hello World")
           print(r'')
