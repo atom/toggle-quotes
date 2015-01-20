@@ -5,9 +5,11 @@
   "description": "Quickly toggle between single and double quotes",
   "repository": "https://github.com/atom/toggle-quotes",
   "license": "MIT",
-  "activationEvents": [
-    "toggle-quotes:toggle"
-  ],
+  "activationCommands": {
+    "atom-text-editor": [
+      "toggle-quotes:toggle"
+    ]
+  },
   "engines": {
     "atom": "*"
   }

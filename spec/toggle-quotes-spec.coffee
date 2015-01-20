@@ -134,3 +134,15 @@ describe "ToggleQuotes", ->
         toggleQuotes(editor)
         expect(editor.lineTextForBufferRow(1)).toBe 'print(r"")'
         expect(editor.getCursorBufferPosition()).toEqual [1, 8]
+
+  it "activates when a command is triggered", ->
+    activatePromise = atom.packages.activatePackage('toggle-quotes')
+
+    waitsForPromise ->
+      atom.workspace.open()
+
+    runs ->
+      editor = atom.workspace.getActiveTextEditor()
+      atom.commands.dispatch(atom.views.getView(editor), 'toggle-quotes:toggle')
+
+    waitsForPromise -> activatePromise
