@@ -20,7 +20,7 @@ describe "ToggleQuotes", ->
           console.log('Hello "World"');
           console.log('');
         """
-        editor.setGrammar(atom.syntax.selectGrammar('test.js'))
+        editor.setGrammar(atom.grammars.selectGrammar('test.js'))
 
     describe "when the cursor is not inside a quoted string", ->
       it "does nothing", ->
@@ -86,7 +86,7 @@ describe "ToggleQuotes", ->
     describe "when the cursor is on an invalid region", ->
       describe "when it is quoted", ->
         it "toggles the quotes", ->
-          editor.setGrammar(atom.syntax.selectGrammar('test.json'))
+          editor.setGrammar(atom.grammars.selectGrammar('test.json'))
           editor.setText("{'invalid': true}")
           editor.setCursorBufferPosition([0, 4])
           toggleQuotes(editor)
@@ -94,7 +94,7 @@ describe "ToggleQuotes", ->
 
       describe "when it is not quoted", ->
         it "does not toggle the quotes", ->
-          editor.setGrammar(atom.syntax.selectGrammar('test.json'))
+          editor.setGrammar(atom.grammars.selectGrammar('test.json'))
           editor.setText("{invalid: true}")
           editor.setCursorBufferPosition([0, 4])
           toggleQuotes(editor)
@@ -113,7 +113,7 @@ describe "ToggleQuotes", ->
           print(u"Hello World")
           print(r'')
         """
-        editor.setGrammar(atom.syntax.selectGrammar('test.py'))
+        editor.setGrammar(atom.grammars.selectGrammar('test.py'))
 
     describe "when cursor is inside a double quoted unicode string", ->
       it "switches quotes to single excluding unicode character", ->
