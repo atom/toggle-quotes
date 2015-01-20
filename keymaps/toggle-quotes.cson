@@ -1,2 +1,2 @@
-'.workspace':
+'atom-workspace':
   'ctrl-"': 'toggle-quotes:toggle'
