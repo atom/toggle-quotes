@@ -41,10 +41,10 @@ toggleQuoteAtPosition = (editor, position) ->
 
   editor.setTextInBufferRange(range, newText)
 
-getNextQuoteCharacter = (quoteCharacter, quoteCharacters) ->
-  i = quoteCharacters.indexOf(quoteCharacter)
+getNextQuoteCharacter = (quoteCharacter, allQuoteCharacters) ->
+  i = allQuoteCharacters.indexOf(quoteCharacter)
   return null if i == -1
-  quoteCharacters[(i + 1) % quoteCharacters.length]
+  allQuoteCharacters[(i + 1) % allQuoteCharacters.length]
 
 module.exports =
   config:
