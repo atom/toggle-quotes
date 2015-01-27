@@ -15,8 +15,7 @@ toggleQuoteAtPosition = (editor, position) ->
     # invalid and so toggling again should properly restore the valid quotes
     if range = editor.displayBuffer.bufferRangeForScopeAtPosition('.invalid.illegal', position)
       inner = quoteChars.split('').map((c) -> "#{c}.*#{c}").join('|')
-      regex = new RegExp("^(#{inner})$", 'g')
-      return unless regex.test(editor.getTextInBufferRange(range))
+      return unless ///^(#{inner})$///g.test(editor.getTextInBufferRange(range))
 
   return unless range?
 
