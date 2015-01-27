@@ -28,7 +28,7 @@ toggleQuoteAtPosition = (editor, position) ->
   prefix = ''
   [prefix, quoteCharacter] = text if /[uUr]/.test(quoteCharacter)
 
-  nextQuoteCharacter = getNextQuote(quoteCharacter, quoteChars)
+  nextQuoteCharacter = getNextQuoteCharacter(quoteCharacter, quoteChars)
   return unless nextQuoteCharacter
   quoteRegex = new RegExp(quoteCharacter, 'g')
   escapedQuoteRegex = new RegExp("\\\\#{quoteCharacter}", 'g')
@@ -41,10 +41,10 @@ toggleQuoteAtPosition = (editor, position) ->
 
   editor.setTextInBufferRange(range, newText)
 
-getNextQuote = (c, cs) ->
-  i = cs.indexOf(c)
+getNextQuoteCharacter = (quoteCharacter, quoteCharacters) ->
+  i = quoteCharacters.indexOf(quoteCharacter)
   return null if i == -1
-  cs[(i + 1) % cs.length]
+  quoteCharacters[(i + 1) % quoteCharacters.length]
 
 module.exports =
   config:
