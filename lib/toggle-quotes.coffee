@@ -14,7 +14,7 @@ toggleQuoteAtPosition = (editor, position) ->
     # This is useful for languages where changing the quotes makes the range
     # invalid and so toggling again should properly restore the valid quotes
     if range = editor.displayBuffer.bufferRangeForScopeAtPosition('.invalid.illegal', position)
-      inner = quoteChars.split('').map((c) -> "#{c}.*#{c}").join('|')
+      inner = quoteChars.split('').map((character) -> "#{character}.*#{character}").join('|')
       return unless ///^(#{inner})$///g.test(editor.getTextInBufferRange(range))
 
   return unless range?
@@ -42,9 +42,11 @@ toggleQuoteAtPosition = (editor, position) ->
   editor.setTextInBufferRange(range, newText)
 
 getNextQuoteCharacter = (quoteCharacter, allQuoteCharacters) ->
-  i = allQuoteCharacters.indexOf(quoteCharacter)
-  return null if i == -1
-  allQuoteCharacters[(i + 1) % allQuoteCharacters.length]
+  index = allQuoteCharacters.indexOf(quoteCharacter)
+  if index is -1
+    null
+  else
+    allQuoteCharacters[(index + 1) % allQuoteCharacters.length]
 
 module.exports =
   config:
