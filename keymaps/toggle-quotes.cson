@@ -1,2 +1,5 @@
-'atom-workspace':
+'.platform-linux atom-workspace, .platform-win32 atom-workspace':
   'ctrl-"': 'toggle-quotes:toggle'
+
+'.platform-darwin atom-workspace':
+  'cmd-"': 'toggle-quotes:toggle'

@@ -1,6 +1,6 @@
 # Toggle quotes package [![Build Status](https://travis-ci.org/atom/toggle-quotes.svg?branch=master)](https://travis-ci.org/atom/toggle-quotes)
 
-`ctrl-"` to toggle a single-quoted string to a double-quoted string, and vice
+`ctrl-"` (or `cmd-"` on OS X) to toggle a single-quoted string to a double-quoted string, and vice
 versa. Available when using any grammar that supports single-quoted and
 double-quoted strings (e.g., JavaScript, Python, Ruby, etc.).
 
