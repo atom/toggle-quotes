@@ -4,8 +4,7 @@
 [![Dependency Status](https://david-dm.org/atom/toggle-quotes.svg)](https://david-dm.org/atom/toggle-quotes)
 
 Toggle a single-quoted string to a double-quoted string, and vice
-versa. Available when using any grammar that supports single-quoted and
-double-quoted strings (e.g. JavaScript, Python, Ruby, etc.).
+versa.
 
 ![toggle-quotes-demo](https://f.cloud.github.com/assets/2988/1764634/c1098d1e-6729-11e3-88f4-73cc336c0173.gif)
 
@@ -25,6 +24,10 @@ Command            | Linux  | OS X  | Windows
 -------------------|--------|-------|----------
 `toggle-quotes:toggle` | <kbd>Ctrl-"</kbd> | <kbd>Cmd-"</kbd> | <kbd>Ctrl-"</kbd>
 
+### Configuration
+
+- `toggle-quotes.quoteCharacters` - The characters `toggle-quotes:toggle` toggles between. Set to `'` and `"` by default.
+
 ## License
 
-This package is [MIT Licensed](http://opensource.org/licenses/MIT), see [LICENSE](LICENSE.md) for details.
+This package is [MIT Licensed](http://opensource.org/licenses/MIT), see [LICENSE](https://github.com/atom/toggle-quotes/blob/master/LICENSE.md) for details.
