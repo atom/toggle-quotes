@@ -26,7 +26,9 @@ Command            | Linux  | OS X  | Windows
 
 ### Configuration
 
-- `toggle-quotes.quoteCharacters` - The characters `toggle-quotes:toggle` toggles between. Set to `'` and `"` by default.
+Configuration Key Path      | Type | Default | Description
+----------------------------|------|---------|------------
+`toggle-quotes.quoteCharacters` | `string` | `'"` | The characters `toggle-quotes:toggle` toggles between. No whitespace.
 
 ## License
 
