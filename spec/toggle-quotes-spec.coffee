@@ -1,4 +1,4 @@
-{toggleQuotes} = require '../lib/toggle-quotes.coffee'
+{toggleQuotes} = require '../lib/toggle-quotes-es6'
 
 describe "ToggleQuotes", ->
   beforeEach ->
