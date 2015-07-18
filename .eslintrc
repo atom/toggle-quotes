@@ -3,12 +3,10 @@
   "env": {
     "browser": true,
     "node": true,
-    "es6": true,
-    "jasmine": true
+    "es6": true
   },
   "globals": {
-    "atom": true,
-    "waitsForPromise": true
+    "atom": true
   },
   "rules": {
     "strict": 0,
