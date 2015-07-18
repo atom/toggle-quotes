@@ -146,4 +146,60 @@ describe("ToggleQuotes", () => {
       });
     });
   });
+
+  describe("toggleQuotes(editor) python", () => {
+    let editor = null;
+
+    beforeEach(() => {
+      waitsForPromise(() => {
+        return atom.packages.activatePackage('language-python');
+      });
+
+      waitsForPromise(() => {
+        return atom.workspace.open();
+      });
+
+      runs(() => {
+        editor = atom.workspace.getActiveTextEditor();
+        editor.setText(
+          r`print(u"Hello World")
+          print(r'')`
+        );
+        editor.setGrammar(atom.grammars.selectGrammar('test.py'));
+      });
+    });
+
+    describe("when cursor is inside a double quoted unicode string", () => {
+      it("switches quotes to single excluding unicode character", () => {
+        editor.setCursorBufferPosition([0, 16]);
+        toggleQuotes(editor);
+        expect(editor.lineTextForBufferRow(0)).toBe("print(u'Hello World')");
+        expect(editor.getCursorBufferPosition()).toEqual([0, 16]);
+      });
+    });
+
+    describe("when cursor is inside an empty single quoted raw string", () => {
+      it("switches quotes to double", () => {
+        editor.setCursorBufferPosition([1, 8]);
+        toggleQuotes(editor);
+        expect(editor.lineTextForBufferRow(1)).toBe('print(r"")');
+        expect(editor.getCursorBufferPosition()).toEqual([1, 8]);
+      });
+    });
+  });
+
+  it("activates when a command is triggered", () => {
+    let activatePromise = atom.packages.activatePackage('toggle-quotes');
+
+    waitsForPromise(() => {
+      return atom.workspace.open();
+    });
+
+    runs(() => {
+      let editor = atom.workspace.getActiveTextEditor();
+      atom.commands.dispatch(atom.views.getView(editor), 'toggle-quotes:toggle');
+    });
+
+    waitsForPromise(() => { return activatePromise; });
+  });
 });
