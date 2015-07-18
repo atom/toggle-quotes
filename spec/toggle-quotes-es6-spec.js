@@ -1,6 +1,7 @@
 'use babel';
 
 import {toggleQuotes} from '../lib/toggle-quotes-es6';
+import {raw as r} from '../lib/string-helper';
 
 describe("ToggleQuotes", () => {
   beforeEach(() => {
@@ -26,7 +27,7 @@ describe("ToggleQuotes", () => {
       runs(() => {
         editor = atom.workspace.getActiveTextEditor();
         editor.setText(
-          `console.log("Hello World");
+          r`console.log("Hello World");
           console.log('Hello World');
           console.log("Hello 'World'");
           console.log('Hello "World"');
