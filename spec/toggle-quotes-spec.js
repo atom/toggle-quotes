@@ -1,6 +1,6 @@
 'use babel';
 
-import {toggleQuotes} from '../lib/toggle-quotes-es6';
+import {toggleQuotes} from '../lib/toggle-quotes';
 import {raw as r} from '../lib/string-helper';
 
 describe("ToggleQuotes", () => {

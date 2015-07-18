@@ -1,7 +1,7 @@
 {
   "name": "toggle-quotes",
   "version": "0.11.0",
-  "main": "./lib/toggle-quotes-es6",
+  "main": "./lib/toggle-quotes",
   "description": "Quickly toggle between single and double quotes",
   "repository": "https://github.com/atom/toggle-quotes",
   "license": "MIT",
@@ -15,7 +15,6 @@
   },
   "devDependencies": {
     "babel-eslint": "^3.1.23",
-    "coffeelint": "^1.10.0",
     "eslint": "^0.24.1"
   }
 }
