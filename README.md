@@ -5,7 +5,7 @@
 
 Toggle a single-quoted string to a double-quoted string, and vice versa.
 
-![toggle-quotes-demo](https://f.cloud.github.com/assets/2988/1764634/c1098d1e-6729-11e3-88f4-73cc336c0173.gif)
+![toggle-quotes-demo](https://cloud.githubusercontent.com/assets/823545/9016150/aa73ab62-379c-11e5-8622-8dbb492ff4f1.gif)
 
 This is a package for [Atom](https://atom.io), a hackable text editor for the 21st Century.
 
