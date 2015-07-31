@@ -23,6 +23,8 @@ Command            | Linux  | OS X  | Windows
 -------------------|--------|-------|----------
 `toggle-quotes:toggle` | <kbd>Ctrl-"</kbd> | <kbd>Cmd-"</kbd> | <kbd>Ctrl-"</kbd>
 
+Custom keybindings can be added by referencing the above commands.  To learn more, visit the [Using Atom: Basic Customization](https://atom.io/docs/latest/using-atom-basic-customization#customizing-key-bindings) or [Behind Atom: Keymaps In-Depth](https://atom.io/docs/latest/behind-atom-keymaps-in-depth) sections in the flight manual.
+
 ### Configuration
 
 Configuration Key Path      | Type | Default | Description
