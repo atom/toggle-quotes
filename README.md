@@ -11,7 +11,7 @@ This is a package for [Atom](https://atom.io), a hackable text editor for the 21
 
 ## Usage
 
-Search for `Toggle Quotes: Toggle` in the Command Palette or enter the keybinding for your system to toggle quotes on a string. Only available when using a grammar that supports single-quoted and double-quoted strings, or any other configured string character (e.g. JavaScript, Python, Ruby, etc.).
+Place the cursor within a string and execute the `Toggle Quotes: Toggle` command to toggle that string between single and double quotes. Only available when using a grammar that supports single-quoted and double-quoted strings, or any other configured string character (e.g. JavaScript, Python, Ruby, etc.).
 
 ### Commands
 
