@@ -14,6 +14,7 @@ This is a package for [Atom](https://atom.io), a hackable text editor for the 21
 Search for `Toggle Quotes: Toggle` in the Command Palette or enter the keybinding for your system to toggle quotes on a string. Only available when using any grammar that supports single-quoted and double-quoted strings, or any other configured string character (e.g. JavaScript, Python, Ruby, etc.).
 
 ### Commands
+
 Command                | Description
 -----------------------|--------------
 `toggle-quotes:toggle` | Toggles the quote characters used for quoted strings between the configured `Quote Characters` (`'` and `"` by default).
@@ -31,6 +32,10 @@ Custom keybindings can be added by referencing the above commands.  To learn mor
 Configuration Key Path      | Type | Default | Description
 ----------------------------|------|---------|------------
 `toggle-quotes.quoteCharacters` | `string` | `'"` | The characters `toggle-quotes:toggle` toggles between. No whitespace.
+
+## Contributing
+
+Always feel free to help out! Whether it's filing bugs and feature requests or working on some of the open issues, Atom's contributing guide will help get you started while the guide for contributing to packages has some extra information.
 
 ## License
 
