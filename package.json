@@ -1,6 +1,6 @@
 {
   "name": "toggle-quotes",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "main": "./lib/main",
   "description": "Quickly toggle between single and double quotes",
   "repository": "https://github.com/atom/toggle-quotes",
