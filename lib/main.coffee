@@ -1,4 +1,5 @@
 {toggleQuotes} = require 'toggle-quotes'
+{CompositeDisposable} = require 'atom'
 
 module.exports =
   config:
@@ -7,6 +8,9 @@ module.exports =
       default: '"\''
 
   activate: ->
-    atom.commands.add 'atom-text-editor', 'toggle-quotes:toggle', ->
+    @subscriptions.add atom.commands.add 'atom-text-editor', 'toggle-quotes:toggle', ->
       if editor = atom.workspace.getActiveTextEditor()
         toggleQuotes(editor)
+
+  deactivate: ->
+    @subscriptions.dispose()
