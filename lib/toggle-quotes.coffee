@@ -48,15 +48,4 @@ getNextQuoteCharacter = (quoteCharacter, allQuoteCharacters) ->
   else
     allQuoteCharacters[(index + 1) % allQuoteCharacters.length]
 
-module.exports =
-  config:
-    quoteCharacters:
-      type: 'string'
-      default: '"\''
-
-  activate: ->
-    atom.commands.add 'atom-text-editor', 'toggle-quotes:toggle', ->
-      if editor = atom.workspace.getActiveTextEditor()
-        toggleQuotes(editor)
-
-  toggleQuotes: toggleQuotes
+module.exports.toggleQuotes = toggleQuotes
