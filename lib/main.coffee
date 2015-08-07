@@ -1,4 +1,4 @@
-{toggleQuotes} = require 'toggle-quotes'
+{toggleQuotes} = require './toggle-quotes'
 
 module.exports =
   config:
