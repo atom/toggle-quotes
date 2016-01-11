@@ -202,4 +202,30 @@ describe('ToggleQuotes', () => {
 
     waitsForPromise(() => { return activatePromise })
   })
+
+  fdescribe('when the cursor is on a line with tab indentation', () => {
+    let editor = null
+
+    beforeEach(() => {
+      waitsForPromise(() => {
+        return atom.packages.activatePackage('language-javascript')
+      })
+
+      waitsForPromise(() => {
+        return atom.workspace.open()
+      })
+
+      runs(() => {
+        editor = atom.workspace.getActiveTextEditor()
+        editor.setText('\tconsole.log("Hello World")')
+        editor.setGrammar(atom.grammars.selectGrammar('test.js'))
+      })
+    })
+
+    it('toggles the quotes', () => {
+      editor.setCursorBufferPosition([0, 20])
+      toggleQuotes(editor)
+      expect(editor.getText()).toBe('\tconsole.log(\'Hello World\')')
+    })
+  })
 })
