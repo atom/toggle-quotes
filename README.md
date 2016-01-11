@@ -5,6 +5,8 @@
 
 Toggle a single-quoted string to a double-quoted string, and vice versa.
 
+(NOTE: Currently unsupported on tab-indented lines. See https://github.com/atom/toggle-quotes/issues/27 for more information.)
+
 ![toggle-quotes-demo](https://cloud.githubusercontent.com/assets/823545/9016150/aa73ab62-379c-11e5-8622-8dbb492ff4f1.gif)
 
 This is a package for [Atom](https://atom.io), a hackable text editor for the 21st Century.
