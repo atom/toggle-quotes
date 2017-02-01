@@ -188,6 +188,71 @@ describe('ToggleQuotes', () => {
     })
   })
 
+  describe('toggleQuotes(editor) with custom quote characters', () => {
+    let editor = null
+    let quoteCharacters = ["'", '"', "`"];
+
+    beforeEach(() => {
+      atom.config.set('toggle-quotes.quoteCharacters', quoteCharacters.join(''))
+    })
+
+    describe('in a recognized and working file grammar', () => {
+      beforeEach(() => {
+        waitsForPromise(() => {
+          return atom.packages.activatePackage('language-javascript')
+        })
+
+        waitsForPromise(() => {
+          return atom.packages.activatePackage('language-ruby')
+        })
+
+        waitsForPromise(() => {
+          return atom.workspace.open()
+        })
+
+        runs(() => {
+          editor = atom.workspace.getActiveTextEditor()
+          editor.setGrammar(atom.grammars.selectGrammar('test.js'))
+        })
+      })
+
+      it('toggles between the quotes', () => {
+        editor.setText('`a custom quoted string`')
+        editor.setCursorBufferPosition([0, 4])
+        let expectedQuote;
+
+        quoteCharacters.forEach(expectedQuote => {
+          toggleQuotes(editor)
+          expect(editor.getText()).toBe(`${expectedQuote}a custom quoted string${expectedQuote}`)
+        });
+      })
+    })
+
+    describe('in an unrecognized file', () => {
+      beforeEach(() => {
+        waitsForPromise(() => {
+          return atom.workspace.open()
+        })
+
+        runs(() => {
+          editor = atom.workspace.getActiveTextEditor()
+          editor.setGrammar(atom.grammars.selectGrammar('test.foo'))
+        })
+      })
+
+      it('toggles between the quotes', () => {
+        editor.setText('`a custom quoted string`')
+        editor.setCursorBufferPosition([0, 4])
+        let expectedQuote;
+
+        quoteCharacters.forEach(expectedQuote => {
+          toggleQuotes(editor)
+          expect(editor.getText()).toBe(`${expectedQuote}a custom quoted string${expectedQuote}`)
+        });
+      })
+    })
+  })
+
   it('activates when a command is triggered', () => {
     let activatePromise = atom.packages.activatePackage('toggle-quotes')
 
