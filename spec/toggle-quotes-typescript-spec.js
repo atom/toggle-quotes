@@ -5,7 +5,7 @@ import {raw as r} from '../lib/string-helper'
 
 describe('ToggleQuotes', () => {
   beforeEach(() => {
-    atom.config.set('toggle-quotes.quoteCharacters', '\'"')
+    atom.config.set('toggle-quotes.quoteCharacters', '\'"`')
   })
 
   describe('toggleQuotes(editor) typescript', () => {
