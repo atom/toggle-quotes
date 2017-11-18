@@ -78,7 +78,7 @@ describe('ToggleQuotes', () => {
         atom.config.set('toggle-quotes.quoteCharacters', '\'"~', { scopeSelector: '.source.js' })
         editor.setCursorBufferPosition([0, 16])
         toggleQuotes(editor)
-        expect(editor.lineTextForBufferRow(0)).toBe("console.log(~Hello World~)")
+        expect(editor.lineTextForBufferRow(0)).toBe('console.log(~Hello World~)')
         expect(editor.getCursorBufferPosition()).toEqual([0, 16])
         atom.config.unset('toggle-quotes.quoteCharacters', { scope: '.source.js' })
       })
