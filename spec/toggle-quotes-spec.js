@@ -73,6 +73,17 @@ describe('ToggleQuotes', () => {
       })
     })
 
+    describe('when using a scope-specific config override', () => {
+      it('prefers the scope-specific setting', () => {
+        atom.config.set('toggle-quotes.quoteCharacters', '\'"~', { scopeSelector: '.source.js' })
+        editor.setCursorBufferPosition([0, 16])
+        toggleQuotes(editor)
+        expect(editor.lineTextForBufferRow(0)).toBe("console.log(~Hello World~)")
+        expect(editor.getCursorBufferPosition()).toEqual([0, 16])
+        atom.config.unset('toggle-quotes.quoteCharacters', { scope: '.source.js' })
+      })
+    })
+
     describe('when the cursor is inside a single quoted string', () => {
       it('switches the quotes to double', () => {
         editor.setCursorBufferPosition([1, 16])
