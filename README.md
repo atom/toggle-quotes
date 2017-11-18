@@ -35,6 +35,14 @@ Configuration Key Path      | Type | Default | Description
 ----------------------------|------|---------|------------
 `toggle-quotes.quoteCharacters` | `string` | `'"` | The characters `toggle-quotes:toggle` toggles between. No whitespace.
 
+You can add [language-specific settings](http://flight-manual.atom.io/using-atom/sections/basic-customization/#language-specific-configuration-settings) for languages with more exotic string delimiters. For example, this setting in your `config.cson` will add backticks in JavaScript files, but not in other kinds of files:
+
+```cson
+".js.source":
+  "toggle-quotes":
+    quoteCharacters: "\"'`"
+```
+
 ## Contributing
 
 Always feel free to help out!  Whether it's filing bugs and feature requests
