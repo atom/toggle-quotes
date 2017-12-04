@@ -89,7 +89,6 @@ describe('ToggleQuotes', () => {
         expect(editor.getCursorBufferPosition()).toEqual([0, 16])
         atom.config.unset('toggle-quotes.quoteCharacters', { scope: '.source.js' })
       })
-
     })
 
     describe('when the cursor is inside a single quoted string', () => {
