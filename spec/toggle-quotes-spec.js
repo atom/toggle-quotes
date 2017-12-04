@@ -13,15 +13,12 @@ describe('ToggleQuotes', () => {
 
     beforeEach(() => {
       waitsForPromise(() => {
-        return atom.packages.activatePackage('language-javascript')
-      })
-
-      waitsForPromise(() => {
-        return atom.packages.activatePackage('language-json')
-      })
-
-      waitsForPromise(() => {
-        return atom.workspace.open()
+        return Promise.all([
+          atom.packages.activatePackage('language-javascript'),
+          atom.packages.activatePackage('language-json'),
+          atom.packages.activatePackage('language-python'),
+          atom.workspace.open()
+        ])
       })
 
       runs(() => {
@@ -70,6 +67,27 @@ describe('ToggleQuotes', () => {
         toggleQuotes(editor)
         expect(editor.lineTextForBufferRow(0)).toBe('console.log(`Hello World`)')
         expect(editor.getCursorBufferPosition()).toEqual([0, 16])
+      })
+    })
+
+    describe('when using a scope-specific config override', () => {
+      it('prefers the scope-specific setting', () => {
+        atom.config.set('toggle-quotes.quoteCharacters', '\'"~', { scopeSelector: '.source.js' })
+        editor.setCursorBufferPosition([0, 16])
+        toggleQuotes(editor)
+        expect(editor.lineTextForBufferRow(0)).toBe('console.log(~Hello World~)')
+        expect(editor.getCursorBufferPosition()).toEqual([0, 16])
+        atom.config.unset('toggle-quotes.quoteCharacters', { scope: '.source.js' })
+      })
+
+      it('does not bleed into the wrong scope', () => {
+        atom.config.set('toggle-quotes.quoteCharacters', '\'"~', { scopeSelector: '.source.js' })
+        editor.setGrammar(atom.grammars.selectGrammar('test.py'))
+        editor.setCursorBufferPosition([0, 16])
+        toggleQuotes(editor)
+        expect(editor.lineTextForBufferRow(0)).toBe('console.log(\'Hello World\')')
+        expect(editor.getCursorBufferPosition()).toEqual([0, 16])
+        atom.config.unset('toggle-quotes.quoteCharacters', { scope: '.source.js' })
       })
     })
 
