@@ -66,7 +66,7 @@ describe('ToggleQuotes', () => {
         it('switches the double quotes to single quotes', () => {
           editor.setCursorBufferPosition([5, 13])
           toggleQuotes(editor)
-          expect(editor.lineTextForBufferRow(5)).toBe('console.log("boom")')
+          expect(editor.lineTextForBufferRow(5)).toBe(`console.log('boom')`)
           expect(editor.getCursorBufferPosition()).toEqual([5, 13])
         })
       })
