@@ -28,7 +28,8 @@ describe('ToggleQuotes', () => {
           console.log('Hello World')
           console.log("Hello 'World'")
           console.log('Hello "World"')
-          console.log('')`
+          console.log('')
+          console.log("boom")`
         )
         editor.setGrammar(atom.grammars.selectGrammar('test.js'))
       })
@@ -56,6 +57,17 @@ describe('ToggleQuotes', () => {
           toggleQuotes(editor)
           expect(editor.lineTextForBufferRow(0)).toBe("console.log('Hello World')")
           expect(editor.getCursorBufferPosition()).toEqual([0, 16])
+        })
+      })
+    })
+
+    describe('when the cursor is barely inside a double quoted string', () => {
+      describe('when using default config', () => {
+        it('switches the double quotes to single quotes', () => {
+          editor.setCursorBufferPosition([5, 13])
+          toggleQuotes(editor)
+          expect(editor.lineTextForBufferRow(5)).toBe(`console.log('boom')`)
+          expect(editor.getCursorBufferPosition()).toEqual([5, 13])
         })
       })
     })
