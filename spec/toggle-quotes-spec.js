@@ -29,7 +29,8 @@ describe('ToggleQuotes', () => {
           console.log("Hello 'World'")
           console.log('Hello "World"')
           console.log('')
-          console.log("boom")`
+          console.log("boom")
+          console.log(\`backticks\`)`
         )
         editor.setGrammar(atom.grammars.selectGrammar('test.js'))
       })
@@ -79,6 +80,14 @@ describe('ToggleQuotes', () => {
         toggleQuotes(editor)
         expect(editor.lineTextForBufferRow(0)).toBe('console.log(`Hello World`)')
         expect(editor.getCursorBufferPosition()).toEqual([0, 16])
+      })
+
+      it('switches backticks to single quotes', () => {
+        atom.config.set('toggle-quotes.quoteCharacters', '\'"`')
+        editor.setCursorBufferPosition([6, 18])
+        toggleQuotes(editor)
+        expect(editor.lineTextForBufferRow(6)).toBe('console.log(\'backticks\')')
+        expect(editor.getCursorBufferPosition()).toEqual([6, 18])
       })
     })
 
