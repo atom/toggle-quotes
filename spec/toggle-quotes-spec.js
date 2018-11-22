@@ -184,6 +184,31 @@ describe('ToggleQuotes', () => {
         })
       })
     })
+
+    describe('when the string contains escaped characters', () => {
+      it ('does not remove them if they are at the end of the line', () => {
+        editor.setText(`'\\\\'`) // == `'\\'`
+        editor.setCursorBufferPosition([0, 2])
+        toggleQuotes(editor)
+        expect(editor.getText()).toBe(`"\\\\"`) // == `"\\"`
+      })
+
+      describe('when there is an escaped quote mark', () => {
+        it ('unescapes if it is the original delim', () => {
+          editor.setText(`'\\\''`) // == `'\''`
+          editor.setCursorBufferPosition([0, 3])
+          toggleQuotes(editor)
+          expect(editor.getText()).toBe(`"'"`)
+        })
+
+        it ('correctly counts escapes', () => {
+          editor.setText(`'\\\\\\\''`) // == `'\\\''`
+          editor.setCursorBufferPosition([0, 4])
+          toggleQuotes(editor)
+          expect(editor.getText()).toBe(`"\\\\'"`) // == `"\\'"`
+        })
+      })
+    })
   })
 
   describe('toggleQuotes(editor) python', () => {
