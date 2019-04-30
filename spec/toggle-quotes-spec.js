@@ -184,6 +184,41 @@ describe('ToggleQuotes', () => {
         })
       })
     })
+
+    describe('when handling escaped characters', () => {
+      it('ignores them if they do not match the previous quote character', () => {
+        editor.setText(`'\\\\ \\" \\a'`)
+        editor.setCursorBufferPosition([0, 2])
+        toggleQuotes(editor)
+        expect(editor.getText()).toBe(`"\\\\ \\" \\a"`)
+      })
+
+      it('unescapes any escaped previous quote characters', () => {
+        editor.setText(`'don\\'t can\\'t'`)
+        editor.setCursorBufferPosition([0, 1])
+        toggleQuotes(editor)
+        expect(editor.getText()).toBe(`"don't can't"`)
+      })
+
+      it('escapes any unescaped next quote characters', () => {
+        editor.setText(`'"Hello world"'`)
+        editor.setCursorBufferPosition([0, 1])
+        toggleQuotes(editor)
+        expect(editor.getText()).toBe(`"\\"Hello world\\""`)
+      })
+
+      it('counts escapes correctly', () => {
+        editor.setText(`'\\\\\\''`) // escaped \ + escaped '
+        editor.setCursorBufferPosition([0, 1])
+        toggleQuotes(editor)
+        expect(editor.getText()).toBe(`"\\\\'"`)
+
+        editor.setText(`'\\\\"'`) // escaped \ + regular "
+        editor.setCursorBufferPosition([0, 1])
+        toggleQuotes(editor)
+        expect(editor.getText()).toBe(`"\\\\\\""`)
+      })
+    })
   })
 
   describe('toggleQuotes(editor) python', () => {
