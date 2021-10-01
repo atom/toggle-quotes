@@ -1,5 +1,5 @@
 '.platform-linux atom-workspace, .platform-win32 atom-workspace':
-  'ctrl-"': 'toggle-quotes:toggle'
+  'ctrl-shift-2': 'toggle-quotes:toggle'
 
 '.platform-darwin atom-workspace':
   'cmd-"': 'toggle-quotes:toggle'
